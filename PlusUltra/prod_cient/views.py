@@ -15,6 +15,7 @@ from django.http import FileResponse
 import csv
 import io
 from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
 
 # home page.
 def home(request):
@@ -129,9 +130,12 @@ def horario(request):
     buffer = io.BytesIO()
     x = canvas.Canvas(buffer)
     x.drawString(200, 800, "Horarios de disponibilidad Local PlusUltra")
-    x.drawString(10, 750, "Lunes a viernes: 9:00 - 20:00")
-    x.drawString(10, 700, "Sabado: 9:00 - 16:00")
+    x.drawString(10, 750, "Lunes a viernes: 11:00 - 14:00 y 15:00 - 19:00")
+    x.drawString(10, 700, "Sabado: 11:00 - 14:00 y 15:00 - 18:00")
+    x.drawString(10, 650, "Plataforma de atención:")
+    x.drawString(10, 600, "Instagram: @plusultralibreria")
+
     x.showPage()
     x.save()
     buffer.seek(0)
-    return FileResponse(buffer, as_attachment=True, filename='attempt1.pdf')
+    return FileResponse(buffer, as_attachment=True, filename='Horario_e_informacion.pdf')
